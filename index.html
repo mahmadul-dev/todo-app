@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My To-Do App!</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="todo-app">
+      <div class="flex">
+        <h1>My TO-DO App</h1>
+        <img src="./images/icon.png" alt="">
+
+      </div>
+      <div class="flex">
+        <input type="text" id="task-input">
+        <button onclick="addTask()">Add Task</button>
+      </div>
+      <div>
+        <ul id="task-container" class="flex">
+          <!-- <li>1</li>
+          <li>2</li>
+          <li>3</li>
+          <li>4</li> -->
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const taskInput = document.getElementById("task-input");
+    const taskContainer = document.getElementById("task-container");
+
+    function addTask() {
+      if (taskInput.value === "") {
+        alert("Please, Type your task!")
+        saveTask()
+      }
+      else {
+        let taskItem = document.createElement("li")
+        taskItem.innerHTML = taskInput.value
+        taskContainer.appendChild(taskItem)
+        saveTask()
+        let remove = document.createElement("span")
+        remove.innerHTML = "\u00d7"
+        taskContainer.appendChild(remove)
+        saveTask()
+      }
+      taskInput.value = ""
+      saveTask()
+    }
+    function saveTask() {
+      localStorage.setItem("data", taskContainer.innerHTML);
+    }
+    taskContainer.addEventListener("click", function (e) {
+
+      if (e.target.tagName === "LI") {
+        e.target.classList.toggle("checked");
+        saveData();
+      }
+      else if (e.target.tagName === "SPAN") {
+        e.target.parentElement.remove();
+        saveData();
+      }
+    }
+    ), false;
+
+  </script>
+</body>
+
+</html>
